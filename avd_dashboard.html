@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Ekonomi Indonesia 2025</title>
+    <link href="bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            border: none;
+        }
+        .dashboard-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: darkorange;
+            margin-bottom: 30px;
+        }
+        .chart-description {
+            font-size: 1rem;
+            color: #555;
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    
+<div class="container py-4">
+    <h1 class="text-center dashboard-title">📊 Dashboard Ekonomi Indonesia 2025</h1>
+
+    <div class="row">
+        <!-- Radar Chart -->
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h5 class="card-title text-center">Radar - Pertumbuhan Global (%)</h5>
+                <canvas id="radarChart"></canvas>
+                <div class="chart-description">
+                    <strong>Penjelasan:</strong><br>
+                    Grafik radar ini menampilkan data tentang pertumbuhan ekonomi global untuk tahun 2024 dan 2025. 
+                    - Dunia diperkirakan akan mengalami penurunan kecil dalam pertumbuhannya, dari 3.2% di 2024 menjadi 2.9% di 2025.
+                    - AS menunjukkan penurunan yang lebih tajam dari 2.1% menjadi 1.6% di 2025, mungkin karena kebijakan ekonomi yang mempengaruhi daya beli masyarakat.
+                    - Tiongkok diperkirakan akan tetap mengalami pertumbuhan meskipun sedikit menurun dari 4.8% menjadi 4.2%.
+                </div>
+            </div>
+        </div>
+
+        <!-- Polar Area Chart -->
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h5 class="card-title text-center">Polar Area - Ekspor Nonmigas</h5>
+                <canvas id="polarChart"></canvas>
+                <div class="chart-description">
+                    <strong>Penjelasan:</strong><br>
+                    Grafik polar ini menunjukkan kontribusi ekspor nonmigas Indonesia menurut beberapa negara tujuan utama ekspor pada triwulan pertama 2025.
+                    - ASEAN adalah mitra perdagangan terbesar Indonesia dengan kontribusi sebesar 36.2%.
+                    - Tiongkok dan AS memiliki kontribusi signifikan, masing-masing 27.3% dan 18.5%.
+                    - Jepang memberikan kontribusi sebesar 14.1%.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Bubble Chart -->
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h5 class="card-title text-center">Bubble - Pertumbuhan Wilayah Indonesia</h5>
+                <canvas id="bubbleChart"></canvas>
+                <div class="chart-description">
+                    <strong>Penjelasan:</strong><br>
+                    Grafik bubble ini menggambarkan pertumbuhan ekonomi Indonesia per wilayah pada tahun 2025, dengan ukuran gelembung mewakili tingkat pertumbuhan ekonomi di masing-masing wilayah.
+                    - Jawa memiliki pertumbuhan ekonomi tertinggi dengan nilai 5.1% dan gelembung terbesar.
+                    - Papua menunjukkan pertumbuhan ekonomi paling rendah dengan 3.9%, diikuti oleh Kalimantan, Sumatera, dan Sulawesi.
+                </div>
+            </div>
+        </div>
+
+        <!-- Doughnut Chart -->
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h5 class="card-title text-center">Doughnut - Kontribusi Sektor PDB</h5>
+                <canvas id="doughnutChart"></canvas>
+                <div class="chart-description">
+                    <strong>Penjelasan:</strong><br>
+                    Grafik donat ini menunjukkan kontribusi sektor-sektor utama dalam PDB Indonesia pada tahun 2025.
+                    - Industri memberikan kontribusi terbesar terhadap PDB Indonesia dengan 40%.
+                    - Jasa adalah sektor kedua terbesar dengan kontribusi 35%.
+                    - Pertanian dan Pertambangan memberikan kontribusi masing-masing sebesar 15% dan 10%.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Line Chart -->
+        <div class="col-md-12">
+            <div class="card p-3">
+                <h5 class="card-title text-center">Line - Konsumsi Rumah Tangga 2024-2025</h5>
+                <canvas id="lineChart"></canvas>
+                <div class="chart-description">
+                    <strong>Penjelasan:</strong><br>
+                    Grafik garis ini menggambarkan pertumbuhan konsumsi rumah tangga Indonesia antara tahun 2024 dan 2025.
+                    - Konsumsi rumah tangga diperkirakan sedikit menurun, dari 4.8% pada 2024 menjadi 4.6% pada 2025.
+                    - Penurunan konsumsi dapat menunjukkan adanya tekanan pada daya beli masyarakat yang berpotensi berpengaruh pada daya dorong ekonomi domestik Indonesia.
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    // Radar Chart
+    const radarCtx = document.getElementById('radarChart').getContext('2d');
+    new Chart(radarCtx, {
+        type: 'radar',
+        data: {
+            labels: ['2024', '2025'],
+            datasets: [
+                {
+                    label: 'Dunia',
+                    data: [3.2, 2.9],
+                    backgroundColor: 'rgba(255,165,0,0.4)',
+                    borderColor: 'orange',
+                    borderWidth: 2
+                },
+                {
+                    label: 'AS',
+                    data: [2.1, 1.6],
+                    backgroundColor: 'rgba(255,140,0,0.4)',
+                    borderColor: 'darkorange',
+                    borderWidth: 2
+                },
+                {
+                    label: 'Tiongkok',
+                    data: [4.8, 4.2],
+                    backgroundColor: 'rgba(255,127,80,0.4)',
+                    borderColor: 'coral',
+                    borderWidth: 2
+                }
+            ]
+        }
+    });
+
+    // Polar Area Chart
+    const polarCtx = document.getElementById('polarChart').getContext('2d');
+    new Chart(polarCtx, {
+        type: 'polarArea',
+        data: {
+            labels: ['AS', 'Tiongkok', 'ASEAN', 'Jepang'],
+            datasets: [{
+                data: [18.5, 27.3, 36.2, 14.1],
+                backgroundColor: ['orange', 'coral', 'darkorange', 'sandybrown']
+            }]
+        }
+    });
+
+    // Bubble Chart
+    const bubbleCtx = document.getElementById('bubbleChart').getContext('2d');
+    new Chart(bubbleCtx, {
+        type: 'bubble',
+        data: {
+            datasets: [{
+                label: 'Pertumbuhan Wilayah',
+                data: [
+                    {x: 5.1, y: 0, r: 15},
+                    {x: 5.3, y: 1, r: 18},
+                    {x: 4.8, y: 2, r: 13},
+                    {x: 4.6, y: 3, r: 11},
+                    {x: 3.9, y: 4, r: 9},
+                ],
+                backgroundColor: 'orange'
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    ticks: {
+                        callback: function(value, index, values) {
+                            const regions = ['Jawa', 'Kalimantan', 'Sumatera', 'Sulawesi', 'Papua'];
+                            return regions[value];
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Doughnut Chart
+    const doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
+    new Chart(doughnutCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Industri', 'Pertanian', 'Jasa', 'Pertambangan'],
+            datasets: [{
+                data: [40, 15, 35, 10],
+                backgroundColor: ['orange', 'coral', 'darkorange', 'sandybrown']
+            }]
+        }
+    });
+
+    // Line Chart
+    const lineCtx = document.getElementById('lineChart').getContext('2d');
+    new Chart(lineCtx, {
+        type: 'line',
+        data: {
+            labels: ['2024', '2025'],
+            datasets: [{
+                label: 'Konsumsi Rumah Tangga',
+                data: [4.8, 4.6],
+                backgroundColor: 'rgba(255,165,0,0.2)',
+                borderColor: 'darkorange',
+                borderWidth: 3,
+                tension: 0.4,
+                fill: true
+            }]
+        }
+    });
+
+</script>
+
+<script src="bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
