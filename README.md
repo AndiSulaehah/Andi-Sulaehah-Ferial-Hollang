@@ -1,1 +1,0 @@
-# Andi-Sulaehah-Ferial-Hollang
